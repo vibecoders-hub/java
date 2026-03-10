@@ -25,40 +25,40 @@ do
 	switch(choice)
 	{
 		case 1: 	System.out.println("Enter a number to add");
-			n=data.nextInt();
-			alist.add(n); break;
+		n=data.nextInt();
+		alist.add(n); break;
 
 		case 2: 	Collections.sort(alist);
 				System.out.println("Sorted List is ");
-				 itr = alist.iterator();
-				while(itr.hasNext())
-					System.out.print(itr.next()+"\t");
-				System.out.println();
-				break;
+		 	ir = alist.iterator();
+			while(itr.hasNext())
+				System.out.print(itr.next()+"\t");
+			System.out.println();
+			break;
         
 		case 3: 	System.out.println("Enter value to be  replaced");
-			n=data.nextInt();
-			if(alist.contains(n))
-			{
-				System.out.println("Enter new value ");
-				z=data.nextInt();
-				int index=alist.indexOf(n);
-					alist.set(index,z);
-				System.out.println("Replacement completed");
-			}
-			else
-				System.out.println("Entered value not found");
-				break;
+		n=data.nextInt();
+		if(alist.contains(n))
+		{
+			System.out.println("Enter new value ");
+			z=data.nextInt();
+			int index=alist.indexOf(n);
+			alist.set(index,z);
+			System.out.println("Replacement completed");
+		}
+		else
+			System.out.println("Entered value not found");
+		break;
 
 		case 4: 	System.out.println("Enter the element to remove");
-			n=data.nextInt();
-			if(alist.contains(n))
-				alist.remove((Integer)n);
-			else
-				System.out.println("Value not found");
-			break;
+		n=data.nextInt();
+		if(alist.contains(n))
+			alist.remove((Integer)n);
+		else
+			System.out.println("Value not found");
+		break;
 
-		case 5:	if (alist.isEmpty())
+		case 5: 	if (alist.isEmpty())
 				System.out.println("List is empty");
 			else
 			{
@@ -79,21 +79,19 @@ do
 			num2=data.nextInt();
 			if(alist.contains(num1) && alist.contains(num2))
 			{
-				if(alist.indexOf(num2)-alist.indexOf(num1)==1)
-				{
-					alist.add(alist.indexOf(num1)+1,num);
-					System.out.println("Item Added");
-				}
-				else
-					System.out.println("numbers are not succussive");
+				int index1 = alist.indexOf(num1);
+				int index2 = alist.indexOf(num2);
+				int insertIndex = Math.min(index1, index2) + 1;
+				alist.add(insertIndex, num);
+				System.out.println("Item Added");
 			}
 			else
-				System.out.println("One of the elements is not Exist");
+				System.out.println("One of the elements does not exist");
 			break;
 
 		case 7: 	System.exit(0); break;
 
-		default:	System.out.println("Wrong choice...");
+		default: 	System.out.println("Wrong choice...");
 	}
 } while(true);
 } 
