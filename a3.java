@@ -30,7 +30,7 @@ do
 
 		case 2: 	Collections.sort(alist);
 				System.out.println("Sorted List is ");
-		 	ir = alist.iterator();
+		 		itr = alist.iterator();
 			while(itr.hasNext())
 				System.out.print(itr.next()+"\t");
 			System.out.println();
@@ -69,6 +69,7 @@ do
 			}
 			System.out.println();
 			break;
+
 		case 6:
 			System.out.println("Enter the Element to be Added");
 			int num, num1,num2;
