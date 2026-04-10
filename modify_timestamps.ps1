@@ -95,19 +95,19 @@
 #  (B) ABSOLUTE PATH — full path from drive root
 #      Use this for files/folders anywhere on the system
 #      Examples:
-#        C:\Users\Akshay\Documents\project
-#        C:\Users\Akshay\Desktop\image.png
+#        C:\Users\yourname\Documents\project
+#        C:\Users\yourname\Documents\project
 #        D:\Backups\old_files
 #
 #  You can MIX relative and absolute paths in the same file:
 #    report.docx
-#    C:\Users\Akshay\Desktop\resume.pdf
+#    C:\Users\C:\Users\yourname\Documents\project\Desktop\resume.pdf
 #    subfolder_name
 #    D:\archive\logs
 #
 #  Example targets_path_list.txt (4 lines = must have 4 dates too):
 #    report.docx
-#    C:\Users\Akshay\Documents\project_folder
+#    C:\Users\C:\Users\yourname\Documents\project\Documents\project_folder
 #    notes.txt
 #    old_backup
 #
