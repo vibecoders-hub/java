@@ -84,7 +84,7 @@
 #
 #  Two types of paths accepted:
 #
-#  (A) RELATIVE NAME — just the filename or folder name
+#  (A) RELATIVE NAME -- just the filename or folder name
 #      Use this when the target is in the SAME folder as the script
 #      Examples:
 #        report.docx
@@ -92,22 +92,22 @@
 #        my_project_folder
 #        archive.zip
 #
-#  (B) ABSOLUTE PATH — full path from drive root
+#  (B) ABSOLUTE PATH -- full path from drive root
 #      Use this for files/folders anywhere on the system
 #      Examples:
-#        C:\Users\yourname\Documents\project
-#        C:\Users\yourname\Documents\project
+#        C:\Users\Akshay\Documents\project
+#        C:\Users\Akshay\Desktop\image.png
 #        D:\Backups\old_files
 #
 #  You can MIX relative and absolute paths in the same file:
 #    report.docx
-#    C:\Users\C:\Users\yourname\Documents\project\Desktop\resume.pdf
+#    C:\Users\Akshay\Desktop\resume.pdf
 #    subfolder_name
 #    D:\archive\logs
 #
 #  Example targets_path_list.txt (4 lines = must have 4 dates too):
 #    report.docx
-#    C:\Users\C:\Users\yourname\Documents\project\Documents\project_folder
+#    C:\Users\Akshay\Documents\project_folder
 #    notes.txt
 #    old_backup
 #
@@ -118,7 +118,7 @@
 #  - The script sets the timestamp on the FOLDER ITSELF only
 #  - Files inside the folder are NOT affected (not recursive)
 #  - If you later add/modify files inside a folder, Windows may
-#    update the folder's timestamp automatically — this is normal
+#    update the folder's timestamp automatically -- this is normal
 #    OS behavior and cannot be prevented by this script
 #
 # ================================================================
@@ -191,7 +191,7 @@ function Apply-Timestamps ($mappings) {
             Write-Host "  OK  [$($dt.ToString('yyyy-MM-dd HH:mm:ss'))]  $target" -ForegroundColor Green
             $success++
         } catch {
-            Write-Warning "FAILED : $target — $($_.Exception.Message)"
+            Write-Warning "FAILED : $target -- $($_.Exception.Message)"
             $fail++
         }
     }
@@ -205,32 +205,37 @@ function Apply-Timestamps ($mappings) {
 # Tries multiple common formats; returns $null if none match
 # ----------------------------------------------------------------
 function Parse-DateTime ($raw) {
-    $dt = $null
-    $formats = @(
-        "yyyy-MM-dd HH:mm:ss",
-        "yyyy-MM-dd HH:mm",
-        "yyyy-MM-dd",
-        "dd-MM-yyyy HH:mm:ss",
-        "dd/MM/yyyy HH:mm:ss"
+    $cleaned = $raw.Trim()
+    # Primary: let InvariantCulture handle yyyy-MM-dd variants directly
+    try {
+        return [datetime]::Parse($cleaned, [System.Globalization.CultureInfo]::InvariantCulture)
+    } catch {}
+    # Fallback: reorder dd-MM-yyyy and dd/MM/yyyy into yyyy-MM-dd before parsing
+    $patterns = @(
+        @{ Regex = '^(\d{2})[/\-](\d{2})[/\-](\d{4})\s+(\d{2}:\d{2}(:\d{2})?)$'; Reorder = '$3-$2-$1 $4' },
+        @{ Regex = '^(\d{2})[/\-](\d{2})[/\-](\d{4})$';                           Reorder = '$3-$2-$1'    }
     )
-    foreach ($fmt in $formats) {
-        if ([datetime]::TryParseExact($raw.Trim(), $fmt, $null, 'None', [ref]$dt)) {
-            return $dt
+    foreach ($p in $patterns) {
+        if ($cleaned -match $p.Regex) {
+            $reordered = $cleaned -replace $p.Regex, $p.Reorder
+            try {
+                return [datetime]::Parse($reordered, [System.Globalization.CultureInfo]::InvariantCulture)
+            } catch {}
         }
     }
     return $null
 }
 
 # ================================================================
-#  MODE 1 — Load from TXT files (line-by-line pairing)
+#  MODE 1 -- Load from TXT files (line-by-line pairing)
 # ================================================================
 function Mode-FromFiles {
     Show-Header
     Write-Host "  MODE: Load from TXT files" -ForegroundColor Yellow
     Write-Host ""
     Write-Host "  Default files expected in script directory:"
-    Write-Host "    dates_and_times.txt     — one datetime per line"
-    Write-Host "    targets_path_list.txt   — one path or name per line"
+    Write-Host "    dates_and_times.txt     -- one datetime per line"
+    Write-Host "    targets_path_list.txt   -- one path or name per line"
     Write-Host "  Line count in both files must be equal."
     Write-Host ""
 
@@ -256,7 +261,7 @@ function Mode-FromFiles {
     $targets = Get-Content $tgtFile  | Where-Object { $_.Trim() -ne "" }
 
     if ($dates.Count -ne $targets.Count) {
-        Write-Warning "Line count mismatch — dates: $($dates.Count), targets: $($targets.Count)"
+        Write-Warning "Line count mismatch -- dates: $($dates.Count), targets: $($targets.Count)"
         Write-Host "  Both files must have the same number of non-blank lines." -ForegroundColor Red
         Pause-Menu; return
     }
@@ -265,7 +270,7 @@ function Mode-FromFiles {
     for ($i = 0; $i -lt $dates.Count; $i++) {
         $dt = Parse-DateTime $dates[$i]
         if ($null -eq $dt) {
-            Write-Warning "Invalid datetime on line $($i+1): '$($dates[$i])' — skipped"
+            Write-Warning "Invalid datetime on line $($i+1): '$($dates[$i])' -- skipped"
             continue
         }
         $mappings += [PSCustomObject]@{ DateTime = $dt; Target = $targets[$i].Trim() }
@@ -278,7 +283,7 @@ function Mode-FromFiles {
 }
 
 # ================================================================
-#  MODE 2 — Manual entry at runtime
+#  MODE 2 -- Manual entry at runtime
 # ================================================================
 function Mode-Manual {
     Show-Header
@@ -303,7 +308,7 @@ function Mode-Manual {
 
         $rawPath = Read-Host "  Target path or filename/foldername"
         if ($rawPath.Trim() -eq "") {
-            Write-Warning "  Empty path — skipped."
+            Write-Warning "  Empty path -- skipped."
             continue
         }
 
@@ -324,7 +329,7 @@ function Mode-Manual {
 }
 
 # ================================================================
-#  MODE 3 — Targets from file, dates entered manually per target
+#  MODE 3 -- Targets from file, dates entered manually per target
 # ================================================================
 function Mode-Mixed {
     Show-Header
@@ -352,7 +357,7 @@ function Mode-Mixed {
         $rawDt = Read-Host "  Datetime"
         $dt = Parse-DateTime $rawDt
         if ($null -eq $dt) {
-            Write-Warning "  Invalid datetime — skipped: $t"
+            Write-Warning "  Invalid datetime -- skipped: $t"
             continue
         }
         $mappings += [PSCustomObject]@{ DateTime = $dt; Target = $t.Trim() }
@@ -370,7 +375,7 @@ function Mode-Mixed {
 }
 
 # ================================================================
-#  MODE 4 — Preview current timestamps (read-only, no changes)
+#  MODE 4 -- Preview current timestamps (read-only, no changes)
 # ================================================================
 function Mode-Preview {
     Show-Header
