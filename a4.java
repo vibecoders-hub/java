@@ -10,7 +10,7 @@ package com.mycompany.parta;
  */
 import java.util.Scanner;
 
-public class p4 {
+public class a4 {
 
     private static String toggleCharacters(String Str) {
         StringBuilder result = new StringBuilder();
