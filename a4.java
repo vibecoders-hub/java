@@ -1,56 +1,38 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package com.mycompany.parta;
-
-/**
- *
- * @author HP
- */
-import java.util.Scanner;
-
-public class a4 {
-
-    private static String toggleCharacters(String Str) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < Str.length(); i++) {
-            char ch = Str.charAt(i);
-            if (Character.isUpperCase(ch)) {
-                result.append(Character.toLowerCase(ch));
-            } else if (Character.isLowerCase(ch)) {
-                result.append(Character.toUpperCase(ch));
-            }else{
-                result.append(ch);
-            }
+static String toggle(String s){
+        StringBuilder res = new StringBuilder();
+        for(char ch : s.toCharArray()){
+            if(Character.isUpperCase(ch)){
+                res.append(Character.toLowerCase(ch));
+            }else if(Character.isLowerCase(ch))
+                res.append(Character.toUpperCase(ch));
+            else
+                res.append(ch);
+            
         }
-        return result.toString();
-
+        return res.toString();
     }
-
-    private static String SwapCharacters(String str) {
-        StringBuilder result = new StringBuilder();
-        String[] words = str.split("\\s+");
-        for (String word : words) {
-            if (word.length() % 2 == 0) {
-                for (int i = 0; i < word.length() - 1; i += 2) {
-                    char temp = word.charAt(i);
-                    result.append(word.charAt(i+1));
-                    result.append(temp);
+    static String swap(String s){
+        StringBuilder res = new StringBuilder();
+        String[] words = s.split("\\s+");
+        for(String w: words){
+            if(w.length() % 2== 0){
+                for(int i = 0;  i < w.length(); i+=2){
+                    res.append(w.charAt(i+1));
+                    res.append(w.charAt(i));
                 }
-                result.append(" ");
+                res.append(" ");
             }
         }
-        return result.toString().trim();
+        
+        return res.toString().trim();
     }
-
-    public static void main(String args[]) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a String: ");
-        String data = scanner.nextLine();
-        String toggle = toggleCharacters(data);
-        System.out.println("Toggled String: " + toggle);
-        String Swap = SwapCharacters(data);
-        System.out.println("Swapped String: " + Swap);
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        
+        System.out.println(toggle(str));
+        System.out.println(swap(str));
     }
-}
