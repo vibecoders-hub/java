@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Java & J2EE Programs - Part A (1 to 8)</title>
+    <style>
+        /* Pygments CSS Rules */
+        pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #282C34; color: #ABB2BF }
+.highlight .c { color: #7F848E } /* Comment */
+.highlight .err { color: #ABB2BF } /* Error */
+.highlight .esc { color: #ABB2BF } /* Escape */
+.highlight .g { color: #ABB2BF } /* Generic */
+.highlight .k { color: #C678DD } /* Keyword */
+.highlight .l { color: #ABB2BF } /* Literal */
+.highlight .n { color: #E06C75 } /* Name */
+.highlight .o { color: #56B6C2 } /* Operator */
+.highlight .x { color: #ABB2BF } /* Other */
+.highlight .p { color: #ABB2BF } /* Punctuation */
+.highlight .ch { color: #7F848E } /* Comment.Hashbang */
+.highlight .cm { color: #7F848E } /* Comment.Multiline */
+.highlight .cp { color: #7F848E } /* Comment.Preproc */
+.highlight .cpf { color: #7F848E } /* Comment.PreprocFile */
+.highlight .c1 { color: #7F848E } /* Comment.Single */
+.highlight .cs { color: #7F848E } /* Comment.Special */
+.highlight .gd { color: #ABB2BF } /* Generic.Deleted */
+.highlight .ge { color: #ABB2BF } /* Generic.Emph */
+.highlight .ges { color: #ABB2BF } /* Generic.EmphStrong */
+.highlight .gr { color: #ABB2BF } /* Generic.Error */
+.highlight .gh { color: #ABB2BF } /* Generic.Heading */
+.highlight .gi { color: #ABB2BF } /* Generic.Inserted */
+.highlight .go { color: #ABB2BF } /* Generic.Output */
+.highlight .gp { color: #ABB2BF } /* Generic.Prompt */
+.highlight .gs { color: #ABB2BF } /* Generic.Strong */
+.highlight .gu { color: #ABB2BF } /* Generic.Subheading */
+.highlight .gt { color: #ABB2BF } /* Generic.Traceback */
+.highlight .kc { color: #E5C07B } /* Keyword.Constant */
+.highlight .kd { color: #C678DD } /* Keyword.Declaration */
+.highlight .kn { color: #C678DD } /* Keyword.Namespace */
+.highlight .kp { color: #C678DD } /* Keyword.Pseudo */
+.highlight .kr { color: #C678DD } /* Keyword.Reserved */
+.highlight .kt { color: #E5C07B } /* Keyword.Type */
+.highlight .ld { color: #ABB2BF } /* Literal.Date */
+.highlight .m { color: #D19A66 } /* Literal.Number */
+.highlight .s { color: #98C379 } /* Literal.String */
+.highlight .na { color: #E06C75 } /* Name.Attribute */
+.highlight .nb { color: #E5C07B } /* Name.Builtin */
+.highlight .nc { color: #E5C07B } /* Name.Class */
+.highlight .no { color: #E06C75 } /* Name.Constant */
+.highlight .nd { color: #61AFEF } /* Name.Decorator */
+.highlight .ni { color: #E06C75 } /* Name.Entity */
+.highlight .ne { color: #E06C75 } /* Name.Exception */
+.highlight .nf { color: #61AFEF; font-weight: bold } /* Name.Function */
+.highlight .nl { color: #E06C75 } /* Name.Label */
+.highlight .nn { color: #E06C75 } /* Name.Namespace */
+.highlight .nx { color: #E06C75 } /* Name.Other */
+.highlight .py { color: #E06C75 } /* Name.Property */
+.highlight .nt { color: #E06C75 } /* Name.Tag */
+.highlight .nv { color: #E06C75 } /* Name.Variable */
+.highlight .ow { color: #56B6C2 } /* Operator.Word */
+.highlight .pm { color: #ABB2BF } /* Punctuation.Marker */
+.highlight .w { color: #ABB2BF } /* Text.Whitespace */
+.highlight .mb { color: #D19A66 } /* Literal.Number.Bin */
+.highlight .mf { color: #D19A66 } /* Literal.Number.Float */
+.highlight .mh { color: #D19A66 } /* Literal.Number.Hex */
+.highlight .mi { color: #D19A66 } /* Literal.Number.Integer */
+.highlight .mo { color: #D19A66 } /* Literal.Number.Oct */
+.highlight .sa { color: #98C379 } /* Literal.String.Affix */
+.highlight .sb { color: #98C379 } /* Literal.String.Backtick */
+.highlight .sc { color: #98C379 } /* Literal.String.Char */
+.highlight .dl { color: #98C379 } /* Literal.String.Delimiter */
+.highlight .sd { color: #98C379 } /* Literal.String.Doc */
+.highlight .s2 { color: #98C379 } /* Literal.String.Double */
+.highlight .se { color: #98C379 } /* Literal.String.Escape */
+.highlight .sh { color: #98C379 } /* Literal.String.Heredoc */
+.highlight .si { color: #98C379 } /* Literal.String.Interpol */
+.highlight .sx { color: #98C379 } /* Literal.String.Other */
+.highlight .sr { color: #98C379 } /* Literal.String.Regex */
+.highlight .s1 { color: #98C379 } /* Literal.String.Single */
+.highlight .ss { color: #98C379 } /* Literal.String.Symbol */
+.highlight .bp { color: #E5C07B } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #56B6C2; font-weight: bold } /* Name.Function.Magic */
+.highlight .vc { color: #E06C75 } /* Name.Variable.Class */
+.highlight .vg { color: #E06C75 } /* Name.Variable.Global */
+.highlight .vi { color: #E06C75 } /* Name.Variable.Instance */
+.highlight .vm { color: #E06C75 } /* Name.Variable.Magic */
+.highlight .il { color: #D19A66 } /* Literal.Number.Integer.Long */
+
+        /* Custom Styles - Clean & Simple (No borders, no mock windows, no metadata headers) */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .page {
+            background: #ffffff;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        h2.question-title {
+            font-size: 1.2rem;
+            color: #111827;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .question-box {
+            background-color: #f3f4f6;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .question-text {
+            font-size: 0.95rem;
+            margin: 0;
+            line-height: 1.5;
+            color: #1f2937;
+        }
+
+        /* Premium Guide Box */
+        .guide-box {
+            background-color: #f0f7ff;
+            border-left: 4px solid #2563eb;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.86rem;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .guide-title {
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+        }
+
+        .guide-steps {
+            margin: 0;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4b5563;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        /* Code block layout with premium dark VSCode-like background for One Dark theme */
+        .highlight {
+            background-color: #282c34 !important;
+            color: #abb2bf !important;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            max-width: 100%;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .highlight pre {
+            margin: 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.78rem; /* Slightly smaller for perfect A4 page fit */
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            background-color: transparent !important;
+            color: inherit !important;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            tab-size: 4; /* Configure standard tab sizing in CSS */
+            -moz-tab-size: 4;
+            -o-tab-size: 4;
+        }
+
+        /* Print formatting */
+        @media print {
+            body {
+                background: #ffffff;
+                color: #000000;
+            }
+            .page {
+                margin: 0;
+                padding: 0;
+                max-width: 100%;
+                width: 100%;
+                height: auto; /* CRITICAL: MUST be auto to prevent crop and extra page breaking bugs! */
+                page-break-after: always;
+                box-sizing: border-box;
+            }
+            .page:last-child {
+                page-break-after: avoid;
+            }
+            .question-box {
+                background-color: #f3f4f6 !important;
+                page-break-inside: avoid; /* Prevents question box from splitting awkwardly */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .guide-box {
+                background-color: #f0f7ff !important;
+                border-left: 4px solid #2563eb !important;
+                page-break-inside: avoid;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .highlight {
+                background-color: #282c34 !important;
+                page-break-inside: auto; /* Let code blocks split naturally between lines, resolving broken container bugs! */
+                max-width: 100%;
+                box-sizing: border-box;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .file-name {
+                page-break-after: avoid; /* Keeps filename text coupled with the code block */
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 20mm 15mm 20mm 15mm; /* Elegant standard margins */
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+<h2 class="question-title">Question 1</h2>
+
+        <div class="question-box">
+            <p class="question-text">Write a program to convert numbers into words using Enumerations with constructors, methods and instance variables.(INPUT RANGE-0 TO 99999)<br>EX: 36 THIRTY SIX</p>
+        </div>
+        
+
+            <div class="file-name">Part1.java</div>
+            <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.*</span><span class="p">;</span>
+
+<span class="kd">enum</span><span class="w"> </span><span class="n">Ones</span><span class="w"> </span><span class="p">{</span>
+<span class="n">ZERO</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Zero&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">ONE</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;One&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TWO</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Two&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="n">THREE</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Three&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">FOUR</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Four&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">FIVE</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Five&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SIX</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Six&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="n">SEVEN</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Seven&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">EIGHT</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Eight&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">NINE</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Nine&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TEN</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ten&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">ELEVEN</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Eleven&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">TWELVE</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Twelve&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">THIRTEEN</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Thirteen&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">FOURTEEN</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fourteen&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="n">FIFTEEN</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fifteen&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SIXTEEN</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sixteen&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SEVENTEEN</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Seventeen&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="n">EIGHTEEN</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Eighteen&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">NINETEEN</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Nineteen&quot;</span><span class="p">);</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">word</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">;</span>
+
+<span class="n">Ones</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">word</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">word</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getValue</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getWord</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">word</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getWordByValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Ones</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Ones</span><span class="p">.</span><span class="na">values</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="na">getValue</span><span class="p">()</span><span class="o">==</span><span class="n">number</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="na">getWord</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">}</span><span class="w"> </span>
+
+<span class="kd">enum</span><span class="w"> </span><span class="n">Tens</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="n">TWENTY</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Twenty&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">THIRTY</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Thirty&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">FORTY</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Forty&quot;</span><span class="p">),</span>
+<span class="n">FIFTY</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Fifty&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SIXTY</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sixty&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">SEVENTY</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Seventy&quot;</span><span class="p">),</span><span class="w"> </span>
+<span class="n">EIGHTY</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Eighty&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">NINETY</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ninety&quot;</span><span class="p">);</span>
+
+<span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">word</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">;</span>
+
+<span class="n">Tens</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">word</span><span class="p">){</span>
+<span class="k">this</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="k">this</span><span class="p">.</span><span class="na">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">word</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">getValue</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getWord</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">word</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">getWordByValue</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Tens</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Tens</span><span class="p">.</span><span class="na">values</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="na">getValue</span><span class="p">()</span><span class="o">==</span><span class="n">number</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">.</span><span class="na">getWord</span><span class="p">();</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Part1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">convert</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">number</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Ones</span><span class="p">.</span><span class="na">ZERO</span><span class="p">.</span><span class="na">getWord</span><span class="p">();</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">convert</span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; Thousand &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">number</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Ones</span><span class="p">.</span><span class="na">getWordByValue</span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; Hundred &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">number</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">20</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Tens</span><span class="p">.</span><span class="na">getWordByValue</span><span class="p">((</span><span class="n">number</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="n">number</span><span class="w"> </span><span class="o">%=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">number</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">Ones</span><span class="p">.</span><span class="na">getWordByValue</span><span class="p">(</span><span class="n">number</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Scanner</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;Enter a number (0 - 99999): &quot;</span><span class="p">);</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">99999</span><span class="p">)</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Number out of range!&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">else</span><span class="w">    </span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;In words: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">convert</span><span class="p">(</span><span class="n">num</span><span class="p">));</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">sc</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="w">   </span>
+<span class="p">}</span>
+</pre></div>
+
+            
+</div>
+<div class="page">
+<h2 class="question-title">Question 2</h2>
+
+        <div class="question-box">
+            <p class="question-text">Find the second maximum and second minimum in a set of numbers using auto boxing and unboxing.</p>
+        </div>
+        
+
+            <div class="file-name">PartA2.java</div>
+            <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.*</span><span class="p">;</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">PartA2</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">args</span><span class="o">[]</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">slarge</span><span class="p">,</span><span class="n">ssmall</span><span class="p">;</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">Scanner</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter the Size of Array: &quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">           </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter the array with atleast 3 elements&quot;</span><span class="p">);</span>
+<span class="w">           </span><span class="k">return</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="n">Integer</span><span class="w"> </span><span class="n">a</span><span class="o">[]=</span><span class="k">new</span><span class="w"> </span><span class="n">Integer</span><span class="o">[</span><span class="n">n</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter any &quot;</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="s">&quot; elements:&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">           </span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+<span class="w">           </span><span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">]==</span><span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">){</span>
+<span class="w">               </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<span class="w">           </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">count</span><span class="o">==</span><span class="n">n</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">           </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Array values must be unqiue: &quot;</span><span class="p">);</span>
+<span class="w">           </span><span class="n">System</span><span class="p">.</span><span class="na">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">           </span><span class="n">Arrays</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">           </span><span class="n">ssmall</span><span class="o">=</span><span class="n">a</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">;</span>
+<span class="w">           </span><span class="n">slarge</span><span class="o">=</span><span class="n">a</span><span class="o">[</span><span class="n">a</span><span class="p">.</span><span class="na">length</span><span class="o">-</span><span class="mi">2</span><span class="o">]</span><span class="p">;</span><span class="w"> </span>
+<span class="w">           </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Secound Largest Element: &quot;</span><span class="o">+</span><span class="n">slarge</span><span class="p">);</span>
+<span class="w">           </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Secound Smallest Element: &quot;</span><span class="o">+</span><span class="n">ssmall</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+            
+</div>
+<div class="page">
+<h2 class="question-title">Question 3</h2>
+
+        <div class="question-box">
+            <p class="question-text">Write a menu driven program to create an Arraylist and perform the following operations:<br>i) Adding elements<br>ii) Sorting elements<br>iii) Replace an element with another<br>iv) Removing an element<br>v) Displaying all the elements<br>vi) Adding an element between two elements</p>
+        </div>
+        
+
+            <div class="file-name">Part3.java</div>
+            <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.*</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">PartA3</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">args</span><span class="o">[]</span><span class="p">){</span>
+<span class="w">      </span><span class="kt">int</span><span class="w"> </span><span class="n">choice</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">;</span>
+<span class="n">Scanner</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+<span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span><span class="w"> </span><span class="n">alist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">         Main Menu</span>
+<span class="s">        -------------------</span>
+<span class="s">        1.Adding Elements</span>
+<span class="s">        2.Sorting Elements</span>
+<span class="s">        3.Replace an element with another</span>
+<span class="s">        4.Removing an Element</span>
+<span class="s">        5.Displaying all Elements</span>
+<span class="s">        6.Adding an Element between two elements</span>
+<span class="s">        7.Exit</span>
+<span class="s">        Enter your choice....</span>
+<span class="s">        &quot;&quot;&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">choice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter a number to add&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">alist</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">());</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span>
+<span class="w">            </span><span class="n">Collections</span><span class="p">.</span><span class="na">sort</span><span class="p">(</span><span class="n">alist</span><span class="p">);</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Sorted List is &quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">alist</span><span class="p">)</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;\t&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter value to be replaced&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter new value&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+<span class="w">                </span><span class="n">alist</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">indexOf</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="n">z</span><span class="p">);</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Replacement completed&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Entered value not found&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">4</span><span class="p">:</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter the element to remove&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="w">                </span><span class="n">alist</span><span class="p">.</span><span class="na">remove</span><span class="p">((</span><span class="n">Integer</span><span class="p">)</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Value not found&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">5</span><span class="p">:</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;List is empty&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Contents of the List is&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">alist</span><span class="p">)</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;\t&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">();</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">6</span><span class="p">:</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter the Element to be Added&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter the First Element&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Enter the Second Element&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">num2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="na">nextInt</span><span class="p">();</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">alist</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">num2</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">indexOf</span><span class="p">(</span><span class="n">num2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">alist</span><span class="p">.</span><span class="na">indexOf</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">alist</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">alist</span><span class="p">.</span><span class="na">indexOf</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">);</span>
+<span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Item Added&quot;</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span>
+<span class="w">                    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;numbers are not succussive&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">else</span>
+<span class="w">                </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;One of the elements is not Exist&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="mi">7</span><span class="p">:</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">default</span><span class="p">:</span>
+<span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Wrong choice...&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w">     </span>
+<span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+            
+</div>
+<div class="page">
+<h2 class="question-title">Question 4</h2>
+
+        <div class="question-box">
+            <p class="question-text">Write a java program to find words with even number of characters in a string, then swap the pair of characters in those words and also toggle the characters in a given string.<br>EX: Good Morning everyone<br>Output: oGdo vereoyen, gOOD mORNING EVERYONE</p>
+        </div>
+        
+
+            <div class="file-name">Part4.java</div>
+            <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Scanner</span><span class="p">;</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Part4</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toggleCharacters</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="n">StringBuilder</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="p">();</span>
+
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="n">ch</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="na">toCharArray</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">Character</span><span class="p">.</span><span class="na">isUpperCase</span><span class="p">(</span><span class="n">ch</span><span class="p">))</span>
+<span class="w">                </span><span class="n">result</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">Character</span><span class="p">.</span><span class="na">toLowerCase</span><span class="p">(</span><span class="n">ch</span><span class="p">));</span>
+
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">Character</span><span class="p">.</span><span class="na">isLowerCase</span><span class="p">(</span><span class="n">ch</span><span class="p">))</span>
+<span class="w">                </span><span class="n">result</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">Character</span><span class="p">.</span><span class="na">toUpperCase</span><span class="p">(</span><span class="n">ch</span><span class="p">));</span>
+
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">result</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">ch</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">toString</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">swapCharacters</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="n">StringBuilder</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StringBuilder</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="na">split</span><span class="p">(</span><span class="s">&quot;\\s+&quot;</span><span class="p">);</span>
+
+<span class="w">        </span><span class="k">for</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">words</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">word</span><span class="p">.</span><span class="na">length</span><span class="p">()</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">                </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">word</span><span class="p">.</span><span class="na">length</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">                    </span><span class="n">result</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">word</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">                    </span><span class="n">result</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="n">word</span><span class="p">.</span><span class="na">charAt</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="n">result</span><span class="p">.</span><span class="na">append</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">toString</span><span class="p">().</span><span class="na">trim</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">        </span><span class="n">Scanner</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Scanner</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">in</span><span class="p">);</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;Enter a String: &quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="na">nextLine</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Swapped String: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">swapCharacters</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;Toggled String: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">toggleCharacters</span><span class="p">(</span><span class="n">data</span><span class="p">));</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+            
+</div>
+<div class="page">
+<h2 class="question-title">Question 5</h2>
+
+        <div class="question-box">
+            <p class="question-text">Write a Servlet program that accepts the age and name and displays if the user is eligible for voting or not.</p>
+        </div>
+        
+
+            <div class="file-name">index.html</div>
+            <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>voting eligibility test<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<span class="w">            </span><span class="nt">table</span><span class="p">{</span>
+<span class="w">                </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">aqua</span><span class="p">;</span>
+<span class="w">                </span><span class="k">width</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">                </span><span class="k">margin-top</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">                </span><span class="k">margin-left</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">                </span><span class="k">margin-right</span><span class="p">:</span><span class="w"> </span><span class="kc">auto</span><span class="p">;</span>
+<span class="w">                </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="kc">solid</span><span class="w"> </span><span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="nt">td</span><span class="p">{</span>
+<span class="w">                </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">                </span><span class="n">spacing</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">                </span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span>
+<span class="w">        </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;voting&quot;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;uname&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>Age<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;age&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                    <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>
+                        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;btn&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;check eligibility&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+            
+
+            <div class="file-name">voting.java</div>
+            <div class="highlight"><pre><span></span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;body&gt;&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;h1&gt;Servlet voting at &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">request</span><span class="p">.</span><span class="na">getContextPath</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;&lt;/h1&gt;&quot;</span><span class="p">);</span>
+<span class="w">            </span>
+<span class="w">            </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&quot;uname&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="o">=</span><span class="n">Integer</span><span class="p">.</span><span class="na">parseInt</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">));</span>
+<span class="w">            </span><span class="k">if</span><span class="p">(</span><span class="n">age</span><span class="o">&gt;=</span><span class="mi">18</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;h3 style=\&quot;color:green\&quot;&gt;&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&quot; you are eligible to vote&lt;/h3&gt;&quot;</span><span class="p">);</span>
+<span class="w">                </span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;h3 style=\&quot;color:brown\&quot;&gt;&quot;</span><span class="o">+</span><span class="n">name</span><span class="o">+</span><span class="s">&quot; you are not eligible to vote&lt;/h3&gt;&quot;</span><span class="p">);</span><span class="w">  </span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;a href=\&quot;index.html\&quot;&gt;Home&lt;/a&gt;&quot;</span><span class="p">);</span>
+<span class="w">            </span>
+<span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;/body&gt;&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;&lt;/html&gt;&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+</pre></div>
+
+            
+</div>
+<div class="page">
+<h2 class="question-title">Question 6</h2>
+
+        <div class="question-box">
+            <p class="question-text">Write a JSP program to print first 10 Fibonacci and 10 prime numbers.</p>
+        </div>
+        
+
+            <div class="file-name">fibprime.jsp</div>
+            <div class="highlight"><pre><span></span><span class="k">&lt;%@</span><span class="n">page</span><span class="w"> </span><span class="n">contentType</span><span class="o">=</span><span class="s">&quot;text/html&quot;</span><span class="w"> </span><span class="n">pageEncoding</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span><span class="k">%&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="w">    </span><span class="nt">&lt;head&gt;</span>
+<span class="w">        </span><span class="nt">&lt;meta</span><span class="w"> </span><span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span><span class="w"> </span><span class="na">content=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;title&gt;</span>fibonacci<span class="w"> </span>sries<span class="w"> </span>and<span class="w"> </span>prime<span class="w"> </span>no<span class="nt">&lt;/title&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/head&gt;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="nt">&lt;body&gt;</span>
+<span class="w">        </span><span class="nt">&lt;h1&gt;</span>Fibonacci<span class="w"> </span>series<span class="nt">&lt;/h1&gt;</span>
+<span class="k">&lt;%</span>
+<span class="cm">/* Fibonacci */</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="na">print</span><span class="p">((</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;&amp;nbsp;&amp;nbsp;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+<span class="w">    </span><span class="n">a</span><span class="o">=</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">%&gt;</span>
+
+<span class="nt">&lt;h1&gt;</span>prime<span class="w"> </span>no<span class="nt">&lt;/h1&gt;</span>
+
+<span class="k">&lt;%</span>
+<span class="cm">/* Prime Numbers */</span>
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">n</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">ct</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">k</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">k</span><span class="o">%</span><span class="n">j</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">ct</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">ct</span><span class="o">==</span><span class="mi">2</span><span class="p">){</span>
+<span class="w">        </span><span class="n">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="s">&quot;&amp;nbsp;&amp;nbsp;&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">n</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="k">%&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+            
+</div>
+<div class="page">
+<h2 class="question-title">Question 8</h2>
+
+        <div class="question-box">
+            <p class="question-text">Write a java Servlet program to Download a file and display it on the screen( A link has to be provided in HTML, when the link is clicked corresponding file has to be displayed on screen).</p>
+        </div>
+        
+
+            <div class="file-name">index.html</div>
+            <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;DownloadDemo?filename=myfile.txt&quot;</span><span class="p">&gt;</span>Download my file<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</pre></div>
+
+            
+
+            <div class="file-name">DownloadDemo.java</div>
+            <div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.io.FileInputStream</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.io.OutputStream</span><span class="p">;</span>
+
+<span class="w">         </span><span class="n">String</span><span class="w"> </span><span class="n">fname</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="na">getParameter</span><span class="p">(</span><span class="s">&quot;filename&quot;</span><span class="p">);</span>
+<span class="w">         </span><span class="n">response</span><span class="p">.</span><span class="na">setHeader</span><span class="p">(</span><span class="s">&quot;Content-Disposition&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;attachment; filename=\&quot;&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fname</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;\&quot;&quot;</span><span class="p">);</span>
+<span class="w">         </span><span class="n">OutputStream</span><span class="w"> </span><span class="n">os</span><span class="o">=</span><span class="n">response</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">();</span>
+<span class="w">         </span><span class="n">String</span><span class="w"> </span><span class="n">filePath</span><span class="o">=</span><span class="s">&quot;C:\\Users\\HP\\Desktop\\BCA\\ADV-JAVA-EXAM\\&quot;</span><span class="o">+</span><span class="n">fname</span><span class="p">;</span>
+<span class="w">         </span><span class="n">FileInputStream</span><span class="w"> </span><span class="n">fis</span><span class="o">=</span><span class="k">new</span><span class="w"> </span><span class="n">FileInputStream</span><span class="p">(</span><span class="n">filePath</span><span class="p">);</span>
+<span class="w">         </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+<span class="w">         </span><span class="k">while</span><span class="p">((</span><span class="n">i</span><span class="o">=</span><span class="n">fis</span><span class="p">.</span><span class="na">read</span><span class="p">())</span><span class="o">!=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">         </span><span class="p">{</span>
+<span class="w">            </span><span class="n">os</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+<span class="w">         </span><span class="p">}</span>
+<span class="w">         </span><span class="n">fis</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+<span class="w">         </span><span class="n">os</span><span class="p">.</span><span class="na">close</span><span class="p">();</span>
+</pre></div>
+
+            
+</div>
+</body>
+</html>
